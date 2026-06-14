@@ -160,6 +160,10 @@ paginate: 10
 # The base URL of your site
 baseurl: ""
 
+# Shop prices API settings used by _plugins/shop_prices_enricher.rb
+shop_prices_api:
+  origin: california-2
+
 # ------------ The following options are not recommended to be modified ------------------
 
 kramdown:

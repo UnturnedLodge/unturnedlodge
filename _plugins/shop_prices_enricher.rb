@@ -4,25 +4,23 @@ require 'json'
 require 'net/http'
 require 'uri'
 
-Jekyll::Hooks.register :site, :post_read do |site|
-  data = site.data['shop_prices']
-  next unless data.is_a?(Hash)
+def enrich_shop_entries(entries, category, base_uri, origin)
+  return unless entries.is_a?(Array)
 
-  items = data['Items'] || data['items']
-  next unless items.is_a?(Array)
+  entries.each do |entry|
+    next unless entry.is_a?(Hash)
 
-  base_uri = URI('https://restoremonarchy.com/browser/search')
+    entry['iconUrl'] = nil
+    entry['assetType'] = nil
+    entry['url'] = nil
 
-  items.each do |item|
-    next unless item.is_a?(Hash)
-
-    item_id = item['ID'] || item['id']
-    next if item_id.nil? || item_id.to_s.strip.empty?
+    entry_id = entry['ID'] || entry['id']
+    next if entry_id.nil? || entry_id.to_s.strip.empty?
 
     params = {
-      'query' => item_id.to_s,
-      'origin' => 'california-2',
-      'category' => 'Item',
+      'query' => entry_id.to_s,
+      'origin' => origin,
+      'category' => category,
       'maxResults' => '1'
     }
 
@@ -47,12 +45,28 @@ Jekyll::Hooks.register :site, :post_read do |site|
       result = JSON.parse(response.body)
       next unless result.is_a?(Array) && !result.empty? && result.first.is_a?(Hash)
 
-      api_item = result.first
-      item['iconUrl'] = api_item['iconUrl'] if api_item.key?('iconUrl')
-      item['assetType'] = api_item['assetType'] if api_item.key?('assetType')
-      item['url'] = api_item['url'] if api_item.key?('url')
+      api_entry = result.first
+      entry['iconUrl'] = api_entry['iconUrl'] if api_entry.key?('iconUrl')
+      entry['assetType'] = api_entry['assetType'] if api_entry.key?('assetType')
+      entry['url'] = api_entry['url'] if api_entry.key?('url')
     rescue StandardError => e
-      Jekyll.logger.warn('shop_prices_enricher:', "Failed item #{item_id}: #{e.message}")
+      Jekyll.logger.warn('shop_prices_enricher:', "Failed #{category.downcase} #{entry_id}: #{e.message}")
     end
   end
+end
+
+Jekyll::Hooks.register :site, :post_read do |site|
+  data = site.data['shop_prices']
+  next unless data.is_a?(Hash)
+
+  items = data['Items'] || data['items']
+  vehicles = data['Vehicles'] || data['vehicles']
+
+  base_uri = URI('https://restoremonarchy.com/browser/search')
+  origin = site.config.dig('shop_prices_api', 'origin')
+  origin = origin.to_s.strip
+  origin = 'california-2' if origin.empty?
+
+  enrich_shop_entries(items, 'Item', base_uri, origin)
+  enrich_shop_entries(vehicles, 'Vehicle', base_uri, origin)
 end

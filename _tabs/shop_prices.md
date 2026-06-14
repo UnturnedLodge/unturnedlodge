@@ -14,6 +14,7 @@ title: Shop prices
 	<thead>
 		<tr>
 			<th>Icon</th>
+			<th>Type</th>
 			<th>ID</th>
 			<th>Item</th>
 			<th>Buy</th>
@@ -30,10 +31,9 @@ title: Shop prices
 					<td>
 						{% if item.iconUrl %}
 							<img src="{{ item.iconUrl }}" alt="{{ item.ItemName | default: item.Name }}" width="48" height="48" loading="lazy">
-						{% else %}
-							-
 						{% endif %}
 					</td>
+					<td>{{ item.assetType }}</td>
 					<td>{{ item.ID }}</td>
 					<td>
 						{% if item_url %}
@@ -50,6 +50,7 @@ title: Shop prices
 			<tr>
 				<td>-</td>
 				<td>-</td>
+				<td>-</td>
 				<td>No items available</td>
 				<td>-</td>
 				<td>-</td>
@@ -63,6 +64,8 @@ title: Shop prices
 <table>
 	<thead>
 		<tr>
+			<th>Icon</th>
+			<th>Type</th>
 			<th>ID</th>
 			<th>Vehicle</th>
 			<th>Buy</th>
@@ -72,14 +75,29 @@ title: Shop prices
 		{% if vehicles and vehicles.size > 0 %}
 			{% for vehicle in vehicles %}
 				{% assign vehicle_buy = vehicle.BuyPrice | default: 0 | plus: 0 %}
+				{% assign vehicle_url = vehicle.url %}
 				<tr>
+					<td>
+						{% if vehicle.iconUrl %}
+							<img src="{{ vehicle.iconUrl }}" alt="{{ vehicle.VehicleName | default: vehicle.Name }}" width="48" height="48" loading="lazy">
+						{% endif %}
+					</td>
+					<td>{{ vehicle.assetType }}</td>
 					<td>{{ vehicle.ID }}</td>
-					<td>{{ vehicle.VehicleName | default: vehicle.Name }}</td>
+					<td>
+						{% if vehicle_url %}
+							<a href="https://restoremonarchy.com{{ vehicle_url }}" target="_blank" rel="noopener noreferrer">{{ vehicle.VehicleName | default: vehicle.Name }}</a>
+						{% else %}
+							{{ vehicle.VehicleName | default: vehicle.Name }}
+						{% endif %}
+					</td>
 					<td>{{ vehicle_buy | round: 0 }}</td>
 				</tr>
 			{% endfor %}
 		{% else %}
 			<tr>
+				<td>-</td>
+				<td>-</td>
 				<td>-</td>
 				<td>No vehicles available</td>
 				<td>-</td>
