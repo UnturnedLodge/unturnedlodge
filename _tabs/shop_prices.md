@@ -38,6 +38,41 @@ title: Shop prices
 		max-height: 48px;
 		margin: 0 auto;
 	}
+
+	#shop-items-list .table-sort-btn,
+	#shop-vehicles-list .table-sort-btn {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.35rem;
+		padding: 0;
+		border: 0;
+		background: transparent;
+		font: inherit;
+		font-weight: 600;
+		color: inherit;
+		line-height: 1.2;
+	}
+
+	#shop-items-list .table-sort-btn:hover,
+	#shop-items-list .table-sort-btn:focus-visible,
+	#shop-vehicles-list .table-sort-btn:hover,
+	#shop-vehicles-list .table-sort-btn:focus-visible {
+		text-decoration: none;
+		opacity: 0.9;
+	}
+
+	#shop-items-list .sort-indicator,
+	#shop-vehicles-list .sort-indicator {
+		font-size: 0.85rem;
+		opacity: 0.7;
+	}
+
+	#shop-items-list .table-sort-btn.asc .sort-indicator,
+	#shop-items-list .table-sort-btn.desc .sort-indicator,
+	#shop-vehicles-list .table-sort-btn.asc .sort-indicator,
+	#shop-vehicles-list .table-sort-btn.desc .sort-indicator {
+		opacity: 1;
+	}
 </style>
 
 ## Item prices
@@ -51,19 +86,19 @@ title: Shop prices
 			<tr>
 				<th>Icon</th>
 				<th>
-					<button class="sort" data-sort="item-type" type="button">Type</button>
+					<button class="sort table-sort-btn" data-sort="item-type" type="button"><span>Type</span><i class="sort-indicator fa-solid fa-sort" aria-hidden="true"></i></button>
 				</th>
 				<th>
-					<button class="sort" data-sort="item-id" type="button">ID</button>
+					<button class="sort table-sort-btn" data-sort="item-id" type="button"><span>ID</span><i class="sort-indicator fa-solid fa-sort" aria-hidden="true"></i></button>
 				</th>
 				<th>
-					<button class="sort" data-sort="item-name" type="button">Item</button>
+					<button class="sort table-sort-btn" data-sort="item-name" type="button"><span>Item</span><i class="sort-indicator fa-solid fa-sort" aria-hidden="true"></i></button>
 				</th>
 				<th>
-					<button class="sort" data-sort="item-buy" type="button">Buy</button>
+					<button class="sort table-sort-btn" data-sort="item-buy" type="button"><span>Buy</span><i class="sort-indicator fa-solid fa-sort" aria-hidden="true"></i></button>
 				</th>
 				<th>
-					<button class="sort" data-sort="item-sell" type="button">Sell</button>
+					<button class="sort table-sort-btn" data-sort="item-sell" type="button"><span>Sell</span><i class="sort-indicator fa-solid fa-sort" aria-hidden="true"></i></button>
 				</th>
 			</tr>
 		</thead>
@@ -117,16 +152,16 @@ title: Shop prices
 			<tr>
 				<th>Icon</th>
 				<th>
-					<button class="sort" data-sort="vehicle-type" type="button">Type</button>
+					<button class="sort table-sort-btn" data-sort="vehicle-type" type="button"><span>Type</span><i class="sort-indicator fa-solid fa-sort" aria-hidden="true"></i></button>
 				</th>
 				<th>
-					<button class="sort" data-sort="vehicle-id" type="button">ID</button>
+					<button class="sort table-sort-btn" data-sort="vehicle-id" type="button"><span>ID</span><i class="sort-indicator fa-solid fa-sort" aria-hidden="true"></i></button>
 				</th>
 				<th>
-					<button class="sort" data-sort="vehicle-name" type="button">Vehicle</button>
+					<button class="sort table-sort-btn" data-sort="vehicle-name" type="button"><span>Vehicle</span><i class="sort-indicator fa-solid fa-sort" aria-hidden="true"></i></button>
 				</th>
 				<th>
-					<button class="sort" data-sort="vehicle-buy" type="button">Buy</button>
+					<button class="sort table-sort-btn" data-sort="vehicle-buy" type="button"><span>Buy</span><i class="sort-indicator fa-solid fa-sort" aria-hidden="true"></i></button>
 				</th>
 			</tr>
 		</thead>
@@ -202,15 +237,47 @@ title: Shop prices
 		function init() {
 			if (!window.List) return;
 
-			new window.List('shop-items-list', {
+			function syncSortIndicators(containerId) {
+				var container = document.getElementById(containerId);
+				if (!container) return;
+
+				var buttons = container.querySelectorAll('button.sort');
+				buttons.forEach(function (button) {
+					var icon = button.querySelector('.sort-indicator');
+					if (!icon) return;
+
+					icon.classList.remove('fa-sort', 'fa-arrow-up', 'fa-arrow-down');
+
+					if (button.classList.contains('asc')) {
+						icon.classList.add('fa-arrow-up');
+						button.setAttribute('aria-sort', 'ascending');
+					} else if (button.classList.contains('desc')) {
+						icon.classList.add('fa-arrow-down');
+						button.setAttribute('aria-sort', 'descending');
+					} else {
+						icon.classList.add('fa-sort');
+						button.setAttribute('aria-sort', 'none');
+					}
+				});
+			}
+
+			var itemsList = new window.List('shop-items-list', {
 				valueNames: ['item-type', 'item-id', 'item-name', 'item-buy', 'item-sell'],
 				sortFunction: createSortFunction(['item-id', 'item-buy', 'item-sell'])
 			});
+			itemsList.on('sortComplete', function () {
+				syncSortIndicators('shop-items-list');
+			});
+			syncSortIndicators('shop-items-list');
 
-			new window.List('shop-vehicles-list', {
+			var vehiclesList = new window.List('shop-vehicles-list', {
 				valueNames: ['vehicle-type', 'vehicle-id', 'vehicle-name', 'vehicle-buy'],
 				sortFunction: createSortFunction(['vehicle-id', 'vehicle-buy'])
 			});
+			vehiclesList.on('sortComplete', function () {
+				syncSortIndicators('shop-vehicles-list');
+			});
+			syncSortIndicators('shop-vehicles-list');
 		}
 
 		if (document.readyState === 'loading') {
