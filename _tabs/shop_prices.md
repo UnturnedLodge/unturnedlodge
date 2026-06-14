@@ -13,6 +13,7 @@ title: Shop prices
 <table>
 	<thead>
 		<tr>
+			<th>Icon</th>
 			<th>ID</th>
 			<th>Item</th>
 			<th>Buy</th>
@@ -24,15 +25,30 @@ title: Shop prices
 			{% for item in items %}
 				{% assign item_buy = item.BuyPrice | default: 0 | plus: 0 %}
 				{% assign item_sell = item.SellPrice | default: 0 | plus: 0 %}
+				{% assign item_url = item.url %}
 				<tr>
+					<td>
+						{% if item.iconUrl %}
+							<img src="{{ item.iconUrl }}" alt="{{ item.ItemName | default: item.Name }}" width="48" height="48" loading="lazy">
+						{% else %}
+							-
+						{% endif %}
+					</td>
 					<td>{{ item.ID }}</td>
-					<td>{{ item.ItemName | default: item.Name }}</td>
+					<td>
+						{% if item_url %}
+							<a href="https://restoremonarchy.com{{ item_url }}" target="_blank" rel="noopener noreferrer">{{ item.ItemName | default: item.Name }}</a>
+						{% else %}
+							{{ item.ItemName | default: item.Name }}
+						{% endif %}
+					</td>
 					<td>{{ item_buy | round: 0 }}</td>
 					<td>{% if item_sell == 0 %}{% else %}{{ item_sell | round: 0 }}{% endif %}</td>
 				</tr>
 			{% endfor %}
 		{% else %}
 			<tr>
+				<td>-</td>
 				<td>-</td>
 				<td>No items available</td>
 				<td>-</td>
