@@ -14,9 +14,15 @@ title: Shop prices
 		width: 100%;
 	}
 
+	#shop-items-list .search,
+	#shop-vehicles-list .search {
+		max-width: 28rem;
+		margin-bottom: 0.75rem;
+	}
+
 	#shop-items-list tbody tr,
 	#shop-vehicles-list tbody tr {
-		height: 64px;
+		height: 48px;
 	}
 
 	#shop-items-list tbody td,
@@ -79,7 +85,7 @@ title: Shop prices
 
 <div id="shop-items-list">
 	<p>
-		<input class="search" type="search" placeholder="Search items..." aria-label="Search items">
+		<input class="search form-control" type="search" placeholder="Search items..." aria-label="Search items">
 	</p>
 	<table>
 		<thead>
@@ -145,7 +151,7 @@ title: Shop prices
 
 <div id="shop-vehicles-list">
 	<p>
-		<input class="search" type="search" placeholder="Search vehicles..." aria-label="Search vehicles">
+		<input class="search form-control" type="search" placeholder="Search vehicles..." aria-label="Search vehicles">
 	</p>
 	<table>
 		<thead>
