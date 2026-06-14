@@ -1,6 +1,6 @@
 ---
 icon: fa-solid fa-basket-shopping
-order: 3
+order: 4
 title: Shop prices
 ---
 

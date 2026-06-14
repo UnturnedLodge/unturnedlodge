@@ -1,6 +1,6 @@
 ---
 icon: fa-solid fa-hand-holding-heart
-order: 1
+order: 2
 title: Donate
 ---
 

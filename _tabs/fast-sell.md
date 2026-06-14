@@ -1,6 +1,6 @@
 ---
 icon: fa-solid fa-bolt-lightning
-order: 2
+order: 3
 title: Fast Sell
 ---
 
