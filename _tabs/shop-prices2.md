@@ -109,12 +109,8 @@ title: Shop prices
 	}
 
 	@keyframes fadeIn {
-		from {
-			opacity: 0;
-		}
-		to {
-			opacity: 1;
-		}
+		from { opacity: 0; }
+		to { opacity: 1; }
 	}
 </style>
 
@@ -142,21 +138,11 @@ title: Shop prices
 					<thead>
 						<tr>
 							<th>Icon</th>
-							<th>
-								<button class="sort table-sort-btn" data-sort="item-type" type="button"><span>Type</span><i class="sort-indicator fa-solid fa-sort" aria-hidden="true"></i></button>
-							</th>
-							<th>
-								<button class="sort table-sort-btn" data-sort="item-id" type="button"><span>ID</span><i class="sort-indicator fa-solid fa-sort" aria-hidden="true"></i></button>
-							</th>
-							<th>
-								<button class="sort table-sort-btn" data-sort="item-name" type="button"><span>Item</span><i class="sort-indicator fa-solid fa-sort" aria-hidden="true"></i></button>
-							</th>
-							<th>
-								<button class="sort table-sort-btn" data-sort="item-buy" type="button"><span>Buy</span><i class="sort-indicator fa-solid fa-sort" aria-hidden="true"></i></button>
-							</th>
-							<th>
-								<button class="sort table-sort-btn" data-sort="item-sell" type="button"><span>Sell</span><i class="sort-indicator fa-solid fa-sort" aria-hidden="true"></i></button>
-							</th>
+							<th><button class="sort table-sort-btn" data-sort="item-type" type="button"><span>Type</span><i class="sort-indicator fa-solid fa-sort" aria-hidden="true"></i></button></th>
+							<th><button class="sort table-sort-btn" data-sort="item-id" type="button"><span>ID</span><i class="sort-indicator fa-solid fa-sort" aria-hidden="true"></i></button></th>
+							<th><button class="sort table-sort-btn" data-sort="item-name" type="button"><span>Item</span><i class="sort-indicator fa-solid fa-sort" aria-hidden="true"></i></button></th>
+							<th><button class="sort table-sort-btn" data-sort="item-buy" type="button"><span>Buy</span><i class="sort-indicator fa-solid fa-sort" aria-hidden="true"></i></button></th>
+							<th><button class="sort table-sort-btn" data-sort="item-sell" type="button"><span>Sell</span><i class="sort-indicator fa-solid fa-sort" aria-hidden="true"></i></button></th>
 						</tr>
 					</thead>
 					<tbody class="list">
@@ -166,33 +152,16 @@ title: Shop prices
 								{% assign item_sell = item.SellPrice | default: 0 | plus: 0 %}
 								{% assign item_url = item.url %}
 								<tr>
-									<td class="icon-cell">
-										{% if item.iconUrl %}
-											<img class="icon-image" src="{{ item.iconUrl }}" alt="{{ item.ItemName | default: item.Name }}" loading="lazy">
-										{% endif %}
-									</td>
+									<td class="icon-cell">{% if item.iconUrl %}<img class="icon-image" src="{{ item.iconUrl }}" alt="{{ item.ItemName | default: item.Name }}" loading="lazy">{% endif %}</td>
 									<td class="item-type">{{ item.assetType }}</td>
 									<td class="item-id">{{ item.ID }}</td>
-									<td class="item-name">
-										{% if item_url %}
-											<a href="https://restoremonarchy.com{{ item_url }}" target="_blank" rel="noopener noreferrer">{{ item.ItemName | default: item.Name }}</a>
-										{% else %}
-											{{ item.ItemName | default: item.Name }}
-										{% endif %}
-									</td>
+									<td class="item-name">{% if item_url %}<a href="https://restoremonarchy.com{{ item_url }}" target="_blank" rel="noopener noreferrer">{{ item.ItemName | default: item.Name }}</a>{% else %}{{ item.ItemName | default: item.Name }}{% endif %}</td>
 									<td class="item-buy">{{ item_buy | round: 0 }}</td>
 									<td class="item-sell">{% if item_sell == 0 %}{% else %}{{ item_sell | round: 0 }}{% endif %}</td>
 								</tr>
 							{% endfor %}
 						{% else %}
-							<tr>
-								<td class="icon-cell"></td>
-								<td class="item-type"></td>
-								<td class="item-id"></td>
-								<td class="item-name">No items available</td>
-								<td class="item-buy"></td>
-								<td class="item-sell"></td>
-							</tr>
+							<tr><td class="icon-cell"></td><td class="item-type"></td><td class="item-id"></td><td class="item-name">No items available</td><td class="item-buy"></td><td class="item-sell"></td></tr>
 						{% endif %}
 					</tbody>
 				</table>
@@ -208,18 +177,10 @@ title: Shop prices
 					<thead>
 						<tr>
 							<th>Icon</th>
-							<th>
-								<button class="sort table-sort-btn" data-sort="vehicle-type" type="button"><span>Type</span><i class="sort-indicator fa-solid fa-sort" aria-hidden="true"></i></button>
-							</th>
-							<th>
-								<button class="sort table-sort-btn" data-sort="vehicle-id" type="button"><span>ID</span><i class="sort-indicator fa-solid fa-sort" aria-hidden="true"></i></button>
-							</th>
-							<th>
-								<button class="sort table-sort-btn" data-sort="vehicle-name" type="button"><span>Vehicle</span><i class="sort-indicator fa-solid fa-sort" aria-hidden="true"></i></button>
-							</th>
-							<th>
-								<button class="sort table-sort-btn" data-sort="vehicle-buy" type="button"><span>Buy</span><i class="sort-indicator fa-solid fa-sort" aria-hidden="true"></i></button>
-							</th>
+							<th><button class="sort table-sort-btn" data-sort="vehicle-type" type="button"><span>Type</span><i class="sort-indicator fa-solid fa-sort" aria-hidden="true"></i></button></th>
+							<th><button class="sort table-sort-btn" data-sort="vehicle-id" type="button"><span>ID</span><i class="sort-indicator fa-solid fa-sort" aria-hidden="true"></i></button></th>
+							<th><button class="sort table-sort-btn" data-sort="vehicle-name" type="button"><span>Vehicle</span><i class="sort-indicator fa-solid fa-sort" aria-hidden="true"></i></button></th>
+							<th><button class="sort table-sort-btn" data-sort="vehicle-buy" type="button"><span>Buy</span><i class="sort-indicator fa-solid fa-sort" aria-hidden="true"></i></button></th>
 						</tr>
 					</thead>
 					<tbody class="list">
@@ -228,31 +189,15 @@ title: Shop prices
 								{% assign vehicle_buy = vehicle.BuyPrice | default: 0 | plus: 0 %}
 								{% assign vehicle_url = vehicle.url %}
 								<tr>
-									<td class="icon-cell">
-										{% if vehicle.iconUrl %}
-											<img class="icon-image" src="{{ vehicle.iconUrl }}" alt="{{ vehicle.VehicleName | default: vehicle.Name }}" loading="lazy">
-										{% endif %}
-									</td>
+									<td class="icon-cell">{% if vehicle.iconUrl %}<img class="icon-image" src="{{ vehicle.iconUrl }}" alt="{{ vehicle.VehicleName | default: vehicle.Name }}" loading="lazy">{% endif %}</td>
 									<td class="vehicle-type">{{ vehicle.assetType }}</td>
 									<td class="vehicle-id">{{ vehicle.ID }}</td>
-									<td class="vehicle-name">
-										{% if vehicle_url %}
-											<a href="https://restoremonarchy.com{{ vehicle_url }}" target="_blank" rel="noopener noreferrer">{{ vehicle.VehicleName | default: vehicle.Name }}</a>
-										{% else %}
-											{{ vehicle.VehicleName | default: vehicle.Name }}
-										{% endif %}
-									</td>
+									<td class="vehicle-name">{% if vehicle_url %}<a href="https://restoremonarchy.com{{ vehicle_url }}" target="_blank" rel="noopener noreferrer">{{ vehicle.VehicleName | default: vehicle.Name }}</a>{% else %}{{ vehicle.VehicleName | default: vehicle.Name }}{% endif %}</td>
 									<td class="vehicle-buy">{{ vehicle_buy | round: 0 }}</td>
 								</tr>
 							{% endfor %}
 						{% else %}
-							<tr>
-								<td class="icon-cell"></td>
-								<td class="vehicle-type"></td>
-								<td class="vehicle-id"></td>
-								<td class="vehicle-name">No vehicles available</td>
-								<td class="vehicle-buy"></td>
-							</tr>
+							<tr><td class="icon-cell"></td><td class="vehicle-type"></td><td class="vehicle-id"></td><td class="vehicle-name">No vehicles available</td><td class="vehicle-buy"></td></tr>
 						{% endif %}
 					</tbody>
 				</table>
@@ -262,103 +207,5 @@ title: Shop prices
 </div>
 
 <script>
-	(function () {
-		function loadListJs(onReady) {
-			if (window.List) {
-				onReady();
-				return;
-			}
-
-			var script = document.createElement('script');
-			script.src = 'https://cdn.jsdelivr.net/npm/list.js@2.3.1/dist/list.min.js';
-			script.defer = true;
-			script.onload = onReady;
-			document.head.appendChild(script);
-		}
-
-		function createSortFunction(numericFields) {
-			return function (a, b, options) {
-				var valueName = options.valueName;
-				var left = (a.values()[valueName] || '').toString().trim();
-				var right = (b.values()[valueName] || '').toString().trim();
-
-				if (numericFields.indexOf(valueName) !== -1) {
-					var leftNumber = left === '' ? -Infinity : parseFloat(left);
-					var rightNumber = right === '' ? -Infinity : parseFloat(right);
-					if (leftNumber < rightNumber) return -1;
-					if (leftNumber > rightNumber) return 1;
-					return 0;
-				}
-
-				return left.localeCompare(right, undefined, { sensitivity: 'base', numeric: true });
-			};
-		}
-
-		function syncSortIndicators(containerId) {
-			var container = document.getElementById(containerId);
-			if (!container) return;
-
-			var buttons = container.querySelectorAll('button.sort');
-			buttons.forEach(function (button) {
-				var icon = button.querySelector('.sort-indicator');
-				if (!icon) return;
-
-				icon.classList.remove('fa-sort', 'fa-arrow-up', 'fa-arrow-down');
-
-				if (button.classList.contains('asc')) {
-					icon.classList.add('fa-arrow-up');
-					button.setAttribute('aria-sort', 'ascending');
-				} else if (button.classList.contains('desc')) {
-					icon.classList.add('fa-arrow-down');
-					button.setAttribute('aria-sort', 'descending');
-				} else {
-					icon.classList.add('fa-sort');
-					button.setAttribute('aria-sort', 'none');
-				}
-			});
-		}
-
-		function init() {
-			if (!window.List) return;
-
-			var itemsList = new window.List('shop-items-list', {
-				valueNames: ['item-type', 'item-id', 'item-name', 'item-buy', 'item-sell'],
-				sortFunction: createSortFunction(['item-id', 'item-buy', 'item-sell'])
-			});
-			itemsList.on('sortComplete', function () {
-				syncSortIndicators('shop-items-list');
-			});
-			syncSortIndicators('shop-items-list');
-
-			var vehiclesList = new window.List('shop-vehicles-list', {
-				valueNames: ['vehicle-type', 'vehicle-id', 'vehicle-name', 'vehicle-buy'],
-				sortFunction: createSortFunction(['vehicle-id', 'vehicle-buy'])
-			});
-			vehiclesList.on('sortComplete', function () {
-				syncSortIndicators('shop-vehicles-list');
-			});
-			syncSortIndicators('shop-vehicles-list');
-
-			// Handle tab switching to ensure search/sort continue to work
-			var tabButtons = document.querySelectorAll('.nav-link');
-			tabButtons.forEach(function (button) {
-				button.addEventListener('shown.bs.tab', function () {
-					// Trigger a refresh of the current tab's data
-					if (button.id === 'items-tab') {
-						itemsList.update();
-					} else if (button.id === 'vehicles-tab') {
-						vehiclesList.update();
-					}
-				});
-			});
-		}
-
-		if (document.readyState === 'loading') {
-			document.addEventListener('DOMContentLoaded', function () {
-				loadListJs(init);
-			});
-		} else {
-			loadListJs(init);
-		}
-	})();
+(function(){function loadListJs(onReady){if(window.List){onReady();return;}var script=document.createElement('script');script.src='https://cdn.jsdelivr.net/npm/list.js@2.3.1/dist/list.min.js';script.defer=true;script.onload=onReady;document.head.appendChild(script);}function createSortFunction(numericFields){return function(a,b,options){var valueName=options.valueName;var left=(a.values()[valueName]||'').toString().trim();var right=(b.values()[valueName]||'').toString().trim();if(numericFields.indexOf(valueName)!==-1){var leftNumber=left===''?-Infinity:parseFloat(left);var rightNumber=right===''?-Infinity:parseFloat(right);if(leftNumber<rightNumber)return -1;if(leftNumber>rightNumber)return 1;return 0;}return left.localeCompare(right,undefined,{sensitivity:'base',numeric:true});};}function syncSortIndicators(containerId){var container=document.getElementById(containerId);if(!container)return;var buttons=container.querySelectorAll('button.sort');buttons.forEach(function(button){var icon=button.querySelector('.sort-indicator');if(!icon)return;icon.classList.remove('fa-sort','fa-arrow-up','fa-arrow-down');if(button.classList.contains('asc')){icon.classList.add('fa-arrow-up');button.setAttribute('aria-sort','ascending');}else if(button.classList.contains('desc')){icon.classList.add('fa-arrow-down');button.setAttribute('aria-sort','descending');}else{icon.classList.add('fa-sort');button.setAttribute('aria-sort','none');}});}function init(){if(!window.List)return;var itemsList=new window.List('shop-items-list',{valueNames:['item-type','item-id','item-name','item-buy','item-sell'],sortFunction:createSortFunction(['item-id','item-buy','item-sell'])});itemsList.on('sortComplete',function(){syncSortIndicators('shop-items-list');});syncSortIndicators('shop-items-list');var vehiclesList=new window.List('shop-vehicles-list',{valueNames:['vehicle-type','vehicle-id','vehicle-name','vehicle-buy'],sortFunction:createSortFunction(['vehicle-id','vehicle-buy'])});vehiclesList.on('sortComplete',function(){syncSortIndicators('shop-vehicles-list');});syncSortIndicators('shop-vehicles-list');var tabButtons=document.querySelectorAll('.nav-link');tabButtons.forEach(function(button){button.addEventListener('shown.bs.tab',function(){if(button.id==='items-tab'){itemsList.update();}else if(button.id==='vehicles-tab'){vehiclesList.update();}});});}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',function(){loadListJs(init);});}else{loadListJs(init);}})();
 </script>
