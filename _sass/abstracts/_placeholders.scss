@@ -11,21 +11,17 @@
 %anchor {
   .anchor {
     font-size: 80%;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.25s ease-in, visibility 0s ease-in 0.25s;
   }
 
-  @media (hover: hover) {
+  &:hover,
+  &:focus-within {
     .anchor {
-      visibility: hidden;
-      opacity: 0;
-      transition: opacity 0.25s ease-in, visibility 0s ease-in 0.25s;
-    }
-
-    &:hover {
-      .anchor {
-        visibility: visible;
-        opacity: 1;
-        transition: opacity 0.25s ease-in, visibility 0s ease-in 0s;
-      }
+      visibility: visible;
+      opacity: 1;
+      transition: opacity 0.25s ease-in, visibility 0s ease-in 0s;
     }
   }
 }
