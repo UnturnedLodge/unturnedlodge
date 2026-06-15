@@ -26,7 +26,7 @@ hide_title: true
     - *Crops*:
         - harvest crops planted by another player
 - **Vault**: a virtual additional personal storage that you can open wherever you are with a simple command `/vault`
-- **Shop**: a virtual shop to buy and sell specific items and vehicles (see the [prices page](/shop-prices) for more details)
+- **Shop**: a virtual shop to buy and sell specific items and vehicles (see [item prices](/item-prices) and [vehicle prices](/vehicle-prices) for more details)
 - **Resource Respawn Blocker**: block every tree regrow by placing items on it, the tree will not regrow even after a server restart!
 - **Fast sell**: sell items to server shop without any chat command (see the [specific page](/fast-sell))
 
